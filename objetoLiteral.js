@@ -9,6 +9,21 @@ const user = {
   }
 }
 
+// em obj derivados do principal (estudante) apenas acrescentar as funções pertinentes, n repetir as q "user" já tem
+const admin = {
+  nome: "Mariana",
+  email: "m@m.com",
+  role: "admin",
+  criarCurso() {
+    console.log('curso criado!')
+  }
+}
+
+//admin herdará de user com esse metodo:
+Object.setPrototypeOf(admin, user)
+admin.criarCurso()
+admin.exibirInfos()
+
 //herança de protótipo x herança de classe: a her de protótipo é a forma em que o js originalmente foi pensado, agregando o conceito
 //de classes em cima dessa derivação original, sendo essencial a palavra this para entender o conceito. THIS só faz sentido dentro do contexto das propriedades do objt
 
@@ -58,4 +73,6 @@ const user = {
 
 // newUser.exibeInfos() //mariana m@m.com
 // newUser.exibeInfos.call(outroUser) //Rodrigo r@r.com
+
+//propriedade que só pode ser acessada pelo terminal do navegador, n funciona no node: admin.__proto__ (exibirá os valores de user, se chamado novamente, chamará o prototipo basico de object)
 
