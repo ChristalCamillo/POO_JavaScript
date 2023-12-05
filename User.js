@@ -4,17 +4,36 @@
 // adicionar "type":"module" abaixo de description
 
 export default class User{
+	#nome
+	#email
+	#nascimento
+	#role
+	#ativo
 	constructor(nome, email, nascimento, role, ativo = true){
-		this.nome = nome
-		this.email = email
-		this.nascimento = nascimento
-		this.role = role || 'estudante'
-		this.ativo = ativo
+		this.#nome = nome
+		this.#email = email
+		this.#nascimento = nascimento
+		this.#role = role || 'estudante'
+		this.#ativo = ativo
 	}
 	//metodos sao funcoes executadas no contexto de um objeto
 
+	//pra privar as coisas, # na frente
+
+//montamos um metodo pra ter acesso as prop privadas de user
+#montaObjUser() {
+	return({
+		nome: this.#nome,
+		email: this.#email,
+		nascimento: this.#nascimento,
+		role: this.#role,
+		ativo: this.#ativo
+	})
+}
+
 	exibirInfos(){
-		return `${this.nome}, ${this.email}`
+		const objUser = this.#montaObjUser()
+		return `${objUser.nome}, ${objUser.email}`
 	}
 }
 
