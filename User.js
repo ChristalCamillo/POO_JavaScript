@@ -3,14 +3,16 @@
 // npm init -y no terminal
 // adicionar "type":"module" abaixo de description
 
-export default class User{
+export default class User {
 	#nome
+	#sobrenome
 	#email
 	#nascimento
 	#role
 	#ativo
-	constructor(nome, email, nascimento, role, ativo = true){
+	constructor(nome, sobrenome, email, nascimento, role, ativo = true) {
 		this.#nome = nome
+		this.#sobrenome = sobrenome
 		this.#email = email
 		this.#nascimento = nascimento
 		this.#role = role || 'estudante'
@@ -20,24 +22,49 @@ export default class User{
 
 	//pra privar as coisas, # na frente
 
-//montamos um metodo pra ter acesso as prop privadas de user
-#montaObjUser() {
-	return({
-		nome: this.#nome,
-		email: this.#email,
-		nascimento: this.#nascimento,
-		role: this.#role,
-		ativo: this.#ativo
-	})
-}
+	//agora acessaremos (read only) a propriedade nome com uma func getter
+	//os getters nunca recebem argumentos
+	//TEM QUE TER UM PRA CADA. Principios de SOLID, questões de segurança e testes
+	get nome() {
+		//pode ter logica, condicional, coisas de func dentro
+		return this.#nome
+	}
 
-	exibirInfos(){
-		const objUser = this.#montaObjUser()
-		return `${objUser.nome}, ${objUser.email}`
+	get sobrenome() {
+		return this.#sobrenome
+	}
+
+	 get nomeCompleto() {
+   return `${this.#nome} ${this.#sobrenome}`
+ }
+
+	get email() {
+		return this.#email
+	}
+
+	get nascimento() {
+		return this.#nascimento
+	}
+
+	get role() {
+		return this.#role
+	}
+
+	get ativo() {
+		return this.#ativo
+	}
+
+	// set nome(novoNome) {
+	// 	if (novoNome === '') {
+	// 		throw new Error('formato não válido')
+	// 	}
+	// 	let [nome, ...sobrenome] = novoNome.split(" ")
+	// 	sobrenome = sobrenome.join(' ')
+	// 	this.#nome = nome
+	// 	this.#sobrenome = sobrenome
+	// }
+
+	exibirInfos() {
+		return `${this.nome}, ${this.email}, ${this.nascimento}, ${this.role}, ${this.ativo}`
 	}
 }
-
-// const novoUser = new User('Juliana', 'j@j.com', '2021-01-01')
-// console.log(novoUser)
-// console.log(novoUser.exibirInfos())
-// console.log(User.prototype.isPrototypeOf(novoUser))  tem q dar true
